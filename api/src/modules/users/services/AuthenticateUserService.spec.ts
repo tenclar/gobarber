@@ -15,6 +15,7 @@ describe('AuthenticateUser', () => {
       fakeUsersRepository,
       fakeHashProvider,
     );
+
     const authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
       fakeHashProvider,
@@ -30,9 +31,11 @@ describe('AuthenticateUser', () => {
       email: 'jhon@gmail.com',
       password: '123456',
     });
+
     expect(response).toHaveProperty('token');
   });
-  it('should be able to authenticate with non existing user', async () => {
+
+  /* it('should be able to authenticate with non existing user', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
 
@@ -74,5 +77,5 @@ describe('AuthenticateUser', () => {
         password: 'wrong-password',
       }),
     ).rejects.toBeInstanceOf(AppError);
-  });
+  }); */
 });
