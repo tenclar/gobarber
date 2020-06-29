@@ -20,6 +20,7 @@ class UsersRepository implements IUsersRepository {
   async create(userData: ICreateUserDTO): Promise<User> {
     const user = new User();
     Object.assign(user, { id: uuid() }, userData);
+    this.users.push(user);
     return user;
   }
 
