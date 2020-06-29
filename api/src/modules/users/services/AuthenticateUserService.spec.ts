@@ -1,11 +1,13 @@
+/* import AppError from '@shared/errors/AppError'; */
 import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
+
 import CreateUserService from './CreateUserService';
 import AuthenticateUserService from './AuthenticateUserService';
 
 describe('AuthenticateUser', () => {
-  it('should be able to authenticate user', async () => {
+  it('should be able to authenticate', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
 
@@ -19,18 +21,17 @@ describe('AuthenticateUser', () => {
     );
 
     await createUser.execute({
-      name: 'Tenclar Valus',
-      email: 'tenclarvalus@gmail.com',
+      name: 'Jhon doe',
+      email: 'jhon@gmail.com',
       password: '123456',
     });
 
-    const auth = await authenticateUser.execute({
-      email: 'tenclarvalus@gmail.com',
+    const response = await authenticateUser.execute({
+      email: 'jhon@gmail.com',
       password: '123456',
     });
-    expect(auth).toHaveProperty('token');
+    expect(response).toHaveProperty('token');
   });
-
   it('should be able to authenticate with non existing user', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
