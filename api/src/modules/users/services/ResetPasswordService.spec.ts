@@ -26,6 +26,7 @@ describe('ResetPasswordEmail', () => {
       email: 'tenclarvalus@gmail.com',
       password: '123456',
     });
+
     const { token } = await fakeUserTokensRepository.generate(user.id);
 
     await resetPasswordEmail.execute({
