@@ -1,5 +1,5 @@
-// import AppError from '../../../shared/errors/AppError';
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
+import AppError from '../../../shared/errors/AppError';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 
 import UpdateProfileService from './UpdateProfileService';
@@ -33,5 +33,61 @@ describe('UpdateProfile', () => {
 
     expect(updateUser.name).toBe('Tenclar Silva');
     expect(updateUser.email).toBe('tenclar.silva@ac.gov.br');
+  });
+
+  it('should be able to Change to another user email', async () => {
+    await fakeUsersRepository.create({
+      name: 'Tenclar Valus',
+      email: 'tenclarvalus@gmail.com',
+      password: '123456',
+    });
+    const user = await fakeUsersRepository.create({
+      name: 'Test',
+      email: 'teste@example.com',
+      password: '123456',
+    });
+
+    await expect(
+      updateProfile.execute({
+        user_id: user.id,
+        name: 'Tenclar Silva',
+        email: 'tenclarvalus@gmail.com',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should be able to Update password', async () => {
+    const user = await fakeUsersRepository.create({
+      name: 'Tenclar Valus',
+      email: 'tenclarvalus@gmail.com',
+      password: '123456',
+    });
+
+    const updateUser = await updateProfile.execute({
+      user_id: user.id,
+      name: 'Tenclar Silva',
+      email: 'tenclar.silva@ac.gov.br',
+      old_password: '123456',
+      password: '121212',
+    });
+
+    expect(updateUser.password).toBe('121212');
+  });
+
+  it('should not be able to Update password without old password', async () => {
+    const user = await fakeUsersRepository.create({
+      name: 'Tenclar Valus',
+      email: 'tenclarvalus@gmail.com',
+      password: '123456',
+    });
+
+    await expect(
+      updateProfile.execute({
+        user_id: user.id,
+        name: 'Tenclar Silva',
+        email: 'tenclar.silva@ac.gov.br',
+        password: '121212',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
