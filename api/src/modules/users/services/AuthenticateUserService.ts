@@ -19,6 +19,7 @@ class AuthenticateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
     @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
@@ -26,14 +27,14 @@ class AuthenticateUserService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
     if (!user) {
-      throw new AppError('Incorret email/passord combination', 401);
+      throw new AppError('Incorret email/password combination 1', 401);
     }
     const passordMatched = await this.hashProvider.compareHash(
       password,
       user.password,
     );
     if (!passordMatched) {
-      throw new AppError('Incorret email/passord combination', 401);
+      throw new AppError('Incorret email/password combination 2', 401);
     }
     const { secret, expiresIn } = authConfig.jwt;
 

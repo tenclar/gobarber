@@ -1,7 +1,6 @@
-/* secret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9', */
 export default {
   jwt: {
-    secret: 'segredo',
+    secret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
     expiresIn: '1d',
   },
 };
