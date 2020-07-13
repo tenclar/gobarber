@@ -100,4 +100,21 @@ describe('UpdateProfile', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+  it('should not be able to Update password with wrong old password', async () => {
+    const user = await fakeUsersRepository.create({
+      name: 'Tenclar Valus',
+      email: 'tenclarvalus@gmail.com',
+      password: '123456',
+    });
+
+    await expect(
+      updateProfile.execute({
+        user_id: user.id,
+        name: 'Tenclar Silva',
+        email: 'tenclar.silva@ac.gov.br',
+        old_password: 'wrong-old-password',
+        password: '121212',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
