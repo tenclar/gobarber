@@ -1,5 +1,5 @@
-import { getRepository, Repository, Between, Raw } from 'typeorm';
-import { startOfMonth, endOfMonth } from 'date-fns';
+import { getRepository, Repository, Raw } from 'typeorm';
+
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
