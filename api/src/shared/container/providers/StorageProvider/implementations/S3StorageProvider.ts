@@ -5,7 +5,7 @@ import uploadConfig from '@config/upload';
 import mime from 'mime';
 import IStorageProvider from '../models/IStorageProvider';
 
-class DiskStorageProvider implements IStorageProvider {
+class S3StorageProvider implements IStorageProvider {
   private client: S3;
 
   constructor() {
@@ -32,7 +32,9 @@ class DiskStorageProvider implements IStorageProvider {
         ContentDisposition: `inline; filename=${file}`,
       })
       .promise();
+
     await fs.promises.unlink(originalPath);
+
     return file;
   }
 
@@ -45,4 +47,4 @@ class DiskStorageProvider implements IStorageProvider {
       .promise();
   }
 }
-export default DiskStorageProvider;
+export default S3StorageProvider;
