@@ -47,6 +47,7 @@ class CreateAppointmentService {
     }
     const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate,
+      provider_id,
     );
 
     if (findAppointmentInSameDate) {
@@ -68,7 +69,7 @@ class CreateAppointmentService {
       appointmentDate,
       'yyyy-M-dd',
     )}`;
-    await this.cacheProvider.invalidadePrefix(cacheKey);
+    await this.cacheProvider.invalidatePrefix(cacheKey);
     return appointment;
   }
 }
