@@ -37,8 +37,10 @@
       "react/jsx-one-expression-per-line":"off",
       "react/jsx-props-no-spreading":"off",
       "react/prop-types":"off",
+      "camelcase":"off",
       "no-unused-expressions":"off",
-      //"@typescript-eslint/no-unused-vars":"off",
+      "@typescript-eslint/camel-case":"off",
+      "@typescript-eslint/no-unused-vars":"off",
       "@typescript-eslint/ban-types":"off",
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/explicit-function-return-type":[
