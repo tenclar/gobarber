@@ -52,17 +52,6 @@ const Dashboard: React.FC = () => {
     setCurrentMonth(month);
   }, []);
 
-  const disabledDays = useMemo(() => {
-    const dates = monthAvailability
-      .filter((monthDay) => monthDay.available === false)
-      .map((monthDay) => {
-        const year = currentMonth.getFullYear();
-        const month = currentMonth.getMonth();
-        return new Date(year, month, monthDay.day);
-      });
-    return dates;
-  }, [currentMonth, monthAvailability]);
-
   useEffect(() => {
     api
       .get(`/providers/${user.id}/month-availability`, {
@@ -95,6 +84,17 @@ const Dashboard: React.FC = () => {
         setAppointments(appointmentsFormatted);
       });
   }, [selectedDate]);
+
+  const disabledDays = useMemo(() => {
+    const dates = monthAvailability
+      .filter((monthDay) => monthDay.available === false)
+      .map((monthDay) => {
+        const year = currentMonth.getFullYear();
+        const month = currentMonth.getMonth();
+        return new Date(year, month, monthDay.day);
+      });
+    return dates;
+  }, [currentMonth, monthAvailability]);
 
   const selectDateAsText = useMemo(() => {
     return format(selectedDate, "'Dia' dd 'de' MMMM", {
