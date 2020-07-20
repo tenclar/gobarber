@@ -14,6 +14,7 @@ interface IResponse {
   user: User;
   token: string;
 }
+
 @injectable()
 class AuthenticateUserService {
   constructor(
@@ -29,13 +30,16 @@ class AuthenticateUserService {
     if (!user) {
       throw new AppError('Incorret email/password combination 1', 401);
     }
+
     const passordMatched = await this.hashProvider.compareHash(
       password,
       user.password,
     );
+
     if (!passordMatched) {
       throw new AppError('Incorret email/password combination 2', 401);
     }
+
     const { secret, expiresIn } = authConfig.jwt;
 
     const token = sign({}, secret, {

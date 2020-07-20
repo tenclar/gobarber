@@ -20,7 +20,7 @@ class CreateUserService {
     @inject('HashProvider')
     private hashProvider: IHashProvider,
 
-    @inject('CacheRepository')
+    @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
 
