@@ -13,7 +13,7 @@ class ListProviderService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('CacheRepository')
+    @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
 

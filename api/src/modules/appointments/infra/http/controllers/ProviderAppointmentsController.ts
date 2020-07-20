@@ -8,7 +8,7 @@ import { classToClass } from 'class-transformer';
 class ProviderAppointmentsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const provider_id = request.user.id;
-    const { day, month, year } = request.body;
+    const { day, month, year } = request.query;
 
     const listproviderAppointments = container.resolve(
       ListProviderAppointmentsService,
@@ -16,9 +16,9 @@ class ProviderAppointmentsController {
 
     const appointments = await listproviderAppointments.execute({
       provider_id,
-      day,
-      month,
-      year,
+      month: Number(month),
+      year: Number(year),
+      day: Number(day),
     });
 
     return response.json(classToClass(appointments));
