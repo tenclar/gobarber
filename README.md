@@ -19,7 +19,7 @@ Sistema Desenvolvido bootcamp 11
 1. ``cd api``
 2. ``yarn para instalar as bibliotecas do projeto``
 3. ``Criar o arquivo .env com base no .env.example``
-4. ``yarn typeorm  migration:run```
+4. ``yarn typeorm  migration:run``
 5. ``yarn dev:server``
 
 
