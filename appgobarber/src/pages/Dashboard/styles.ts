@@ -68,3 +68,9 @@ export const ProviderMetaText = styled.Text`
   color: #999591;
   font-family: 'RobotoSlab-Regular';
 `;
+export const ProviderListTitle = styled.Text`
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #f4ede8;
+  font-family: 'RobotoSlab-Medium';
+`;
