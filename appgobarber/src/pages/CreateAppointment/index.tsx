@@ -1,7 +1,8 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Platform } from 'react-native';
 import { useAuth } from '../../hooks/Auth';
 import api from '../../services/api';
 import {
@@ -15,6 +16,10 @@ import {
   ProviderContainer,
   ProviderAvatar,
   ProviderName,
+  Calendar,
+  CalendarTitle,
+  OpenDatePikerButton,
+  OpenDatePickerButtonText,
 } from './styles';
 
 interface RouteParams {
@@ -33,6 +38,8 @@ const CreateAppointment: React.FC = () => {
   const route = useRoute();
   const { goBack } = useNavigation();
   const routeParams = route.params as RouteParams;
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedProvider, setSelectedProvider] = useState(
     routeParams.providerId,
   );
@@ -51,6 +58,21 @@ const CreateAppointment: React.FC = () => {
     setSelectedProvider(providerId);
   }, []);
 
+  const handleToggleDatePicker = useCallback(() => {
+    setShowDatePicker((state) => !state);
+  }, []);
+
+  const handleDateChanged = useCallback(
+    (event: any, date: Date | undefined) => {
+      if (Platform.OS === 'android') {
+        setShowDatePicker(false);
+      }
+      if (date) {
+        setSelectedDate(date);
+      }
+    },
+    [],
+  );
   return (
     <Container>
       <Header>
@@ -80,6 +102,20 @@ const CreateAppointment: React.FC = () => {
           )}
         />
       </ProviderListContainer>
+      <Calendar>
+        <CalendarTitle>Escolha a Data</CalendarTitle>
+        <OpenDatePikerButton onPress={handleToggleDatePicker}>
+          <OpenDatePickerButtonText>Selecionar Data</OpenDatePickerButtonText>
+        </OpenDatePikerButton>
+        {showDatePicker && (
+          <DateTimePicker
+            mode="date"
+            onChange={handleDateChanged}
+            display="calendar"
+            value={selectedDate}
+          />
+        )}
+      </Calendar>
     </Container>
   );
 };
